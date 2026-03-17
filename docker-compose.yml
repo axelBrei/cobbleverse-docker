@@ -16,7 +16,7 @@ services:
     # Ensure init scripts are executable (on Windows/WSL the +x bit can be lost)
     entrypoint: ["/bin/sh", "-c", "d=/container-init.d; echo '[compose:init] listing ' $$d; ls -la $$d 2>/dev/null || echo '[compose:init] ' $$d ' (missing)'; cnt=$$(ls -1 $$d/*.sh 2>/dev/null | wc -l); echo \"[compose:init] found $$cnt .sh files in $$d\"; chmod +x $$d/* 2>/dev/null || true; if [ \"$$cnt\" -gt 0 ]; then for f in $$d/*.sh; do [ -e \"$$f\" ] || continue; echo \"[compose:init] running $$f\"; \"$$f\" || echo \"[compose:init] $$f exited with $$?\"; done; fi; exec /start"]
     env_file:
-      - .env
+      - stack.env
     environment:
       EULA: "TRUE"
       TYPE: "MODRINTH"
@@ -70,7 +70,7 @@ services:
     depends_on:
       - mc
     env_file:
-      - .env
+      - stack.env
     environment:
       TZ: "${TZ:-UTC}"
       BACKUP_INTERVAL: "${BACKUP_INTERVAL:-24h}"
@@ -93,7 +93,7 @@ services:
     depends_on:
       - mc-backup
     env_file:
-      - .env
+      - stack.env
     environment:
       TZ: "${TZ:-UTC}"
       BACKUP_MAX_BACKUPS: "${BACKUP_MAX_BACKUPS:-0}"
