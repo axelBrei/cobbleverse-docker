@@ -10,7 +10,7 @@ services:
       - "25575:25575" #Rcon
 
     volumes:
-      - ./data:/data
+      - ./data-new:/data
       - ./backups:/backups
       - ./scripts/init:/container-init.d
     # Ensure init scripts are executable (on Windows/WSL the +x bit can be lost)
@@ -83,7 +83,7 @@ services:
       # Pass through the same password used by the mc service; when empty, rcon is disabled
       RCON_PASSWORD: "${RCON_PASSWORD:-}"
     volumes:
-      - ./data:/data:ro
+      - ./data-new:/data:ro
       - ./backups:/backups
 
   mc-backup-prune:
